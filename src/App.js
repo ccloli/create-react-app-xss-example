@@ -11,7 +11,7 @@ class ListItem extends Component {
                     }`.trim()
                 }>
                     <input type="checkbox" onclick="alert(/XSS/)" checked={ data.checked } onChange={ (event) => { this.onCheckboxChange(data.id); } } />
-                    {/* Should be `this.props.onCheckboxChange` */}                
+                    {/* Should be `this.props.onCheckboxChange` */}
                     { data.content }
                 </label>
             </li>
@@ -37,7 +37,7 @@ class TrickyListItem extends Component {
     }
 }
 
-class NoBugListItem extends Component {
+class NoXSSListItem extends Component {
     render() {
         const data = this.props.data;
         // we removed the new line after `.trim()`
@@ -48,7 +48,7 @@ class NoBugListItem extends Component {
                         data.checked ? 'checked-field' : ''
                     }`.trim() }>
                     <input type="checkbox" onclick="alert(/XSS/)" checked={ data.checked } onChange={ (event) => { this.onCheckboxChange(data.id); } } />
-                    {/* Should be `this.props.onCheckboxChange` */}                
+                    {/* Should be `this.props.onCheckboxChange` */}
                     { data.content }
                 </label>
             </li>
@@ -109,10 +109,11 @@ class List extends Component {
                 <hr />
 
                 <h2>Normal Input</h2>
+                <p>This will just show the error.</p>
                 <ul>
                     {
                         this.state.list.map((elem) => {
-                            return <NoBugListItem data={ elem } onCheckboxChange={ this.onCheckboxChange } key={ elem.id } />;
+                            return <NoXSSListItem data={ elem } onCheckboxChange={ this.onCheckboxChange } key={ elem.id } />;
                         })
                     }
                 </ul>
